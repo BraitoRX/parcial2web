@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import ListadoCafes from './pages/ListadoCafes';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+import './App.css'; // Importamos el archivo de estilos CSS
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app-container"> 
+        <div className="title-container"> 
+          <h1 className="title">El aroma mágico</h1> 
+        </div>
+        <div className="image-container"> 
+          <img src={require('./assets/bannerCafe.png')} alt="Banner de Café" className="banner-image" />
+        </div>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Cafes/" element={<ListadoCafes />} />
+        </Routes>
+        <div className="contact-info">
+          <p>Contact us: +57 3102105253 - info@elaromamagico.com - @elaromamagico</p>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
