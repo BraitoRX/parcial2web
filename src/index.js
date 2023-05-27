@@ -1,18 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { IntlProvider } from 'react-intl';
+import messages_en from './locales/en.json';
+import messages_es from './locales/es.json';
 
+const AppWrapper = () => {
+  const [locale, setLocale] = useState(navigator.language.split(/[-_]/)[0]); // Obtén el idioma del navegador
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setLocale(navigator.language.split(/[-_]/)[0]);
+    };
+    
+    window.addEventListener('languagechange', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('languagechange', handleLanguageChange);
+    };
+  }, []);
+
+  const messages = {
+    en: messages_en,
+    es: messages_es,
+  };
+
+  return (
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </IntlProvider>
+  );
+};
+
+ReactDOM.render(<AppWrapper />, document.getElementById('root'));
+
+// Resto del código...
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

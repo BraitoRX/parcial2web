@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css"; 
+import { FormattedMessage } from "react-intl";
+import "./login.css";
 
 const LoginForm = () => {
   const [login, setLogin] = useState("");
@@ -31,56 +32,60 @@ const LoginForm = () => {
       const data = await response.json();
       console.log(data);
 
-      if (response.ok){
+      if (response.ok) {
         navigate("/cafes");
-      }
-      else{
-        setError("Error de autenticación. revise sus credenciales.");
+      } else {
+        setError(
+          <FormattedMessage id="ErrorAutenticacion" defaultMessage="Error de autenticación. Revise sus credenciales." />
+        );
       }
     } catch (error) {
-      setError("Error de red. Verifica tu conexión.");
+      setError(
+        <FormattedMessage id="ErrorRed" defaultMessage="Error de red. Verifica tu conexión." />
+      );
       console.error(error);
     }
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="label" htmlFor="login">
-            Nombre de usuario:
-          </label>
-          <input
-            className="input"
-            type="text"
-            id="login"
-            value={login}
-            onChange={handleLoginChange}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label" htmlFor="password">
-            Contraseña:
-          </label>
-          <input
-            className="input"
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <div className="button-group">
-          <button className="submit-button" type="submit">
-            Ingresar
-          </button>
-          <button className="cancel-button" type="button">
-            Cancelar
-          </button>
-        </div>
-        {error && <div className="error-message">{error}</div>}
-      </form>
-      
+    <div className="login-card">
+      <div className="login-content">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="label" htmlFor="login">
+              <FormattedMessage id="NombreUsuario" defaultMessage="Nombre de usuario:" />
+            </label>
+            <input
+              className="input"
+              type="text"
+              id="login"
+              value={login}
+              onChange={handleLoginChange}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label" htmlFor="password">
+              <FormattedMessage id="Contraseña" defaultMessage="Contraseña:" />
+            </label>
+            <input
+              className="input"
+              type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <div className="button-group">
+            <button className="submit-button" type="submit">
+              <FormattedMessage id="Ingresar" defaultMessage="Ingresar" />
+            </button>
+            <button className="cancel-button" type="button">
+              <FormattedMessage id="Cancelar" defaultMessage="Cancelar" />
+            </button>
+          </div>
+          {error && <div className="error-message">{error}</div>}
+        </form>
+      </div>
     </div>
   );
 };

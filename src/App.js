@@ -1,27 +1,61 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import ListadoCafes from './pages/ListadoCafes';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ListadoCafes from "./pages/ListadoCafes";
+import CafeDetail from "./componentes/cafeComponent/cafeDetail";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import { FormattedMessage } from "react-intl";
 
-import './App.css'; // Importamos el archivo de estilos CSS
+const CafeDetailWrapper = () => {
+  const { id } = useParams();
+  return <CafeDetail cafeId={id} />;
+};
 
 const App = () => {
   return (
     <Router>
-      <div className="app-container"> 
-        <div className="title-container"> 
-          <h1 className="title">El aroma mágico</h1> 
+      <div className="app-container">
+        <div className="title-container">
+          <h1 className="title">
+            <FormattedMessage id="aromaMagico" />
+          </h1>
         </div>
-        <div className="image-container"> 
-          <img src={require('./assets/bannerCafe.png')} alt="Banner de Café" className="banner-image" />
+        <div className="image-container">
+          <img
+            src={require("./assets/bannerCafe.png")}
+            alt="Banner de Café"
+            className="banner-image"
+          />
         </div>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/Cafes/" element={<ListadoCafes />} />
-        </Routes>
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <Routes>
+              <Route path="/cafes" element={<ListadoCafes />} />
+              <Route path="/cafes/:id" element={<ListadoCafes />} />
+            </Routes>
+          </div>
+          <div className="col-12 col-md-6">
+            <Routes>
+              <Route path="/cafes/:id" element={<CafeDetailWrapper />} />
+            </Routes>
+          </div>
+        </div>
+        <div className="row"></div>
+        <div className="login-page-container">
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+          </Routes>
+        </div>
         <div className="contact-info">
-          <p>Contact us: +57 3102105253 - info@elaromamagico.com - @elaromamagico</p>
+          <p>
+            <FormattedMessage id="Contactanos" /> +57 3102105253 - info@elaromamagico.com - @elaromamagico
+          </p>
         </div>
       </div>
     </Router>

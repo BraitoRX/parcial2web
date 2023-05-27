@@ -1,0 +1,17 @@
+{
+  "Nombre": "Name",
+  "Tipo": "Type",
+  "Region": "Region",
+  "aromaMagico": "The magical aroma",
+  "Cultivado...": "Cultivated at an altitude of",
+  "msnm": "m above sea level",
+  "Notas": "Notes",
+  "Cultivado": "Cultivated on",
+  "NombreUsuario": "Username",
+  "Contraseña": "Password",
+  "Ingresar": "Log in",
+  "Cancelar": "Cancel",
+  "ErrorAutenticacion": "Authentication error. Please check your credentials.",
+  "ErrorRed": "Network error. Please check your connection.",
+  "Contactanos": "Contact us"
+}

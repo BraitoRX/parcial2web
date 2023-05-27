@@ -1,0 +1,18 @@
+{
+  "Nombre": "Nombre",
+  "Tipo": "Tipo",
+  "Region": "Región",
+  "aromaMagico": "El aroma mágico",
+  "Cultivado...": "Cultivado a una altura de",
+  "msnm": "msnm",
+  "Notas": "Notas",
+  "Cultivado": "Cultivado el",
+  "NombreUsuario": "Nombre de usuario",
+  "Contraseña": "Contraseña",
+  "Ingresar": "Ingresar",
+  "Cancelar": "Cancelar",
+  "ErrorAutenticacion": "Error de autenticación. Revise sus credenciales.",
+  "ErrorRed": "Error de red. Verifica tu conexión.",
+  "Contactanos": "Contactanos"
+
+}

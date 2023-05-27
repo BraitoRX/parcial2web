@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { ListGroup, Row, Col } from 'react-bootstrap';
-import CafeDetail from '../cafeComponent/cafeDetail';
+import React, { useState, useEffect } from "react";
+import { FormattedMessage } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 const CafeList = () => {
   const [cafes, setCafes] = useState([]);
   const [selectedCafe, setSelectedCafe] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCafes();
@@ -12,7 +13,7 @@ const CafeList = () => {
 
   const getCafes = async () => {
     try {
-      const response = await fetch('http://localhost:3001/cafes');
+      const response = await fetch("http://localhost:3001/cafes");
       const data = await response.json();
       setCafes(data);
     } catch (error) {
@@ -29,6 +30,7 @@ const CafeList = () => {
       const response = await fetch(`http://localhost:3001/cafes/${id}`);
       const data = await response.json();
       setSelectedCafe(data);
+      navigate("/cafes/" + id);
     } catch (error) {
       console.error(error);
     }
@@ -36,32 +38,43 @@ const CafeList = () => {
 
   return (
     <div className="container">
-      <h2>Café List</h2>
-      <div className="row">
-        <div className="col-6">
-          <ListGroup>
-            {cafes.map((cafe) => (
-              <ListGroup.Item
-                key={cafe.id}
-                onClick={() => handleCafeClick(cafe.id)}
-                active={selectedCafe && selectedCafe.id === cafe.id}
-                style={{ cursor: 'pointer' }}
-              >
-                <Row>
-                  <Col>
-                    <h4>{cafe.nombre}</h4>
-                    <p>Tipo: {cafe.tipo}</p>
-                    <p>Región: {cafe.region}</p>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </div>
-        <div className="col-6">
-          {selectedCafe && <CafeDetail cafeId={selectedCafe.id} />}
-        </div>
-      </div>
+      <table className="table">
+        <thead className="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+              <FormattedMessage id="Nombre" />
+            </th>
+
+            <th scope="col">
+              {" "}
+              <FormattedMessage id="Tipo" />
+            </th>
+            <th scope="col">
+              <FormattedMessage id="Region" />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {cafes.map((cafe) => (
+            <tr
+              key={cafe.id}
+              onClick={() => handleCafeClick(cafe.id)}
+              className={
+                selectedCafe && selectedCafe.id === cafe.id
+                  ? "table-active"
+                  : ""
+              }
+              style={{ cursor: "pointer" }}
+            >
+              <th scope="row">{cafe.id}</th>
+              <td>{cafe.nombre}</td>
+              <td>{cafe.tipo}</td>
+              <td>{cafe.region}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
