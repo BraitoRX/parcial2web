@@ -10,13 +10,13 @@ import messages_en from './locales/en.json';
 import messages_es from './locales/es.json';
 
 const AppWrapper = () => {
-  const [locale, setLocale] = useState(navigator.language.split(/[-_]/)[0]); // Obtén el idioma del navegador
+  const [locale, setLocale] = useState(navigator.language.split(/[-_]/)[0]); 
 
   useEffect(() => {
     const handleLanguageChange = () => {
       setLocale(navigator.language.split(/[-_]/)[0]);
     };
-    
+
     window.addEventListener('languagechange', handleLanguageChange);
 
     return () => {
@@ -40,7 +40,6 @@ const AppWrapper = () => {
 
 ReactDOM.render(<AppWrapper />, document.getElementById('root'));
 
-// Resto del código...
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
